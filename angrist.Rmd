@@ -1,0 +1,69 @@
+---
+title: Angrist and Krueger Replication
+subtitle: ARE 212
+author: Connor P. Jackson
+date: "`r format(Sys.time(), '%B %d, %Y - %H:%M %Z')`"
+output:
+  html_notebook:
+    fig_caption: yes
+    number_sections: yes
+    df_print: !expr pander::pander
+  html_document:
+    fig_caption: yes
+    highlight: textmate
+    number_sections: yes
+    df_print: !expr pander::pander
+  pdf_document:
+    fig_caption: yes
+    toc: yes
+    number_sections: yes
+    df_print: !expr pander::pander
+linkcolor: blue
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(pander)
+library(rmarkdown)
+library(reticulate)
+use_python("~/opt/anaconda3/bin/python3", required = TRUE)
+options(knitr.kable.NA = '')
+panderOptions("digits", 3)
+panderOptions("table.split.cells", 15)
+panderOptions("table.split.table", 120)
+```
+
+# Import Replication Data
+
+We begin by importing the replication data.
+
+```{python}
+import pandas as pd
+
+educ = pd.read_stata("angrist-krueger91.dta")
+```
+
+```{r echo = FALSE}
+py$educ[1:5, ]
+```
+
+# Replicate Equations (1) and (2) via Two-Stage Least Squares
+
+Recalling the two-stage least squares estimator
+
+$$
+\begin{aligned}
+\hat{\beta}_{2SLS} 
+&= (\hat{X}'\hat{X})^{-1}\hat{X}'y \\
+&= (X'Z(Z'Z)^{-1}Z'X)^{-1}X'Z(Z'Z)^{-1}Z'y
+\end{aligned}
+$$
+
+We can define our $X$, $Z$, and $y$ matricies and estimate accordingly. 
+
+```{python}
+X = educ.loc[:, []]
+```
+
+
